@@ -46,7 +46,7 @@ const sinify = (scale : number) : number => Math.sin(scale * Math.PI)
 
 const maxScale = (scale : number, i : number, n : number) : number => Math.max(0, scale - i / n)
 
-const divideScale = (scale : number, i : number, n : number) => maxScale(scale, i, n)
+const divideScale = (scale : number, i : number, n : number) => Math.min(1 / n, maxScale(scale, i, n)) * n 
 
 export const useStyle = (w : number, h : number, scale : number) => {
     const background : string = "indigo"
@@ -58,7 +58,7 @@ export const useStyle = (w : number, h : number, scale : number) => {
             return {
                 position: 'absolute',
                 left: `${w / 2}px`,
-                top: `${h / 2}px`,
+                top: `${h * 0.5 * (1 - dsc(1))}px`,
                 transform: `rotate(${-90 * dsc(0)}deg)`
             }
         },
@@ -67,7 +67,6 @@ export const useStyle = (w : number, h : number, scale : number) => {
                 position: 'absolute',
                 width: `${size}px`,
                 height: `${size / 4}px`,
-                top: `${-h * 0.5 * dsc(1)}px`,
                 left: `0px`,
                 background 
             }
