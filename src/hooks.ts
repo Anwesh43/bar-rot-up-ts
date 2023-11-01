@@ -22,3 +22,22 @@ export const useAnimatedScale = (scGap : number = 0.01, delay : number = 20) => 
         }
     }
 }
+
+export const useDimension = () => {
+    const [w, setW] = useState<number>(window.innerWidth)
+    const [h, setH] = useState<number>(window.innerHeight)
+    useEffect(() => {
+        const resizeListener = () => {
+            setW(window.innerWidth)
+            setH(window.innerHeight)
+        }
+        window.addEventListener('resize', resizeListener, false)
+        return () => {
+            window.removeEventListener(resizeListener)
+        }
+    })
+    return {
+        w, 
+        h
+    }
+}
